@@ -1,0 +1,29 @@
+{
+  "name": "sangam",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sangam - AI-powered multi-supplier travel inventory intelligence platform",
+  "scripts": {
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "dev:intelligence": "cd intelligence && source venv/bin/activate && uvicorn app.main:app --reload --port 8000",
+    "build:server": "npm --prefix server run build",
+    "build:client": "npm --prefix client run build",
+    "build": "npm run build:server && npm run build:client",
+    "test:server": "npm --prefix server run test",
+    "test:intelligence": "cd intelligence && python3 -m pytest",
+    "test": "npm run test:server && npm run test:intelligence",
+    "db:migrate": "npm --prefix server run prisma:migrate",
+    "db:generate": "npm --prefix server run prisma:generate",
+    "db:seed": "npm --prefix server run prisma:seed"
+  },
+  "keywords": [
+    "traveltech",
+    "b2b",
+    "saas",
+    "inventory-deduplication",
+    "travel-intelligence"
+  ],
+  "author": "Sangam Team",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,329 @@
+// SANGAM - Prisma Database Schema
+// Multi-Supplier Travel Inventory Intelligence Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// Enums
+// -----------------------------------------------------------------------------
+
+enum UserRole {
+  ADMIN
+  ANALYST
+  VIEWER
+}
+
+enum SupplierStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ImportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum InventoryCategory {
+  HOTEL
+  SIGHTSEEING
+}
+
+enum MatchStatus {
+  UNMATCHED
+  AUTO_MATCHED
+  MANUALLY_MATCHED
+  REVIEW_REQUIRED
+  REJECTED
+}
+
+enum CanonicalStatus {
+  ACTIVE
+  DRAFT
+  MERGED
+  ARCHIVED
+}
+
+enum DecisionType {
+  AUTO_ACCEPT
+  MANUAL_CONFIRM
+  MANUAL_REJECT
+  SPLIT
+}
+
+enum DecisionEntityType {
+  ENTITY
+  VARIANT
+}
+
+// -----------------------------------------------------------------------------
+// 1. User Model
+// -----------------------------------------------------------------------------
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         UserRole  @default(ANALYST)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  matchDecisions MatchDecision[]
+
+  @@map("users")
+}
+
+// -----------------------------------------------------------------------------
+// 2. Supplier Model
+// -----------------------------------------------------------------------------
+model Supplier {
+  id               String         @id @default(uuid())
+  code             String         @unique
+  name             String
+  contactEmail     String?
+  status           SupplierStatus @default(ACTIVE)
+  reliabilityScore Decimal        @default(1.00) @db.Decimal(5, 2)
+  apiEndpoint      String?
+  metadata         Json           @default("{}")
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  imports  InventoryImport[]
+  listings SupplierListing[]
+
+  @@index([status])
+  @@index([code])
+  @@map("suppliers")
+}
+
+// -----------------------------------------------------------------------------
+// 3. InventoryImport Model
+// -----------------------------------------------------------------------------
+model InventoryImport {
+  id               String            @id @default(uuid())
+  supplierId       String
+  importRef        String            @unique
+  category         InventoryCategory
+  status           ImportStatus      @default(PENDING)
+  totalRecords     Int               @default(0)
+  processedRecords Int               @default(0)
+  errorLog         Json              @default("[]")
+  startedAt        DateTime          @default(now())
+  completedAt      DateTime?
+
+  supplier Supplier          @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  listings SupplierListing[]
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([category])
+  @@map("inventory_imports")
+}
+
+// -----------------------------------------------------------------------------
+// 4. CanonicalEntity Model (De-duplicated master entity)
+// -----------------------------------------------------------------------------
+model CanonicalEntity {
+  id                 String            @id @default(uuid())
+  category           InventoryCategory
+  name               String
+  standardizedName   String
+  destinationCity    String
+  destinationCountry String
+  latitude           Decimal?          @db.Decimal(10, 6)
+  longitude          Decimal?          @db.Decimal(10, 6)
+  starRating         Decimal?          @db.Decimal(3, 1)
+  address            String?
+  description        String?           @db.Text
+  attributes         Json              @default("{}")
+  status             CanonicalStatus   @default(ACTIVE)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  supplierListings SupplierListing[]
+  variants         CanonicalVariant[]
+
+  @@index([category])
+  @@index([destinationCity])
+  @@index([destinationCountry])
+  @@index([standardizedName])
+  @@map("canonical_entities")
+}
+
+// -----------------------------------------------------------------------------
+// 5. SupplierListing Model (Preserves raw supplier inventory record)
+// -----------------------------------------------------------------------------
+model SupplierListing {
+  id                String            @id @default(uuid())
+  supplierId        String
+  importId          String?
+  canonicalEntityId String?
+  externalId        String
+  category          InventoryCategory
+  rawName           String
+  normalizedName    String
+  rawAddress        String?
+  city              String?
+  country           String?
+  latitude          Decimal?          @db.Decimal(10, 6)
+  longitude         Decimal?          @db.Decimal(10, 6)
+  starRating        Decimal?          @db.Decimal(3, 1)
+  rawDescription    String?           @db.Text
+  rawData           Json              @default("{}")
+  matchStatus       MatchStatus       @default(UNMATCHED)
+  matchConfidence   Decimal?          @db.Decimal(5, 4)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  supplier        Supplier                 @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  import          InventoryImport?         @relation(fields: [importId], references: [id], onDelete: SetNull)
+  canonicalEntity CanonicalEntity?         @relation(fields: [canonicalEntityId], references: [id], onDelete: SetNull)
+  variants        SupplierVariantListing[]
+
+  @@unique([supplierId, externalId])
+  @@index([supplierId])
+  @@index([canonicalEntityId])
+  @@index([category])
+  @@index([matchStatus])
+  @@index([normalizedName])
+  @@index([city])
+  @@map("supplier_listings")
+}
+
+// -----------------------------------------------------------------------------
+// 6. CanonicalVariant Model (Normalized room category or tour option)
+// -----------------------------------------------------------------------------
+model CanonicalVariant {
+  id                String            @id @default(uuid())
+  canonicalEntityId String
+  category          InventoryCategory
+  name              String
+  standardCode      String?
+  description       String?           @db.Text
+  attributes        Json              @default("{}")
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  canonicalEntity  CanonicalEntity          @relation(fields: [canonicalEntityId], references: [id], onDelete: Cascade)
+  supplierVariants SupplierVariantListing[]
+
+  @@index([canonicalEntityId])
+  @@index([category])
+  @@index([name])
+  @@map("canonical_variants")
+}
+
+// -----------------------------------------------------------------------------
+// 7. SupplierVariantListing Model (Supplier's room type or ticket option)
+// -----------------------------------------------------------------------------
+model SupplierVariantListing {
+  id                 String      @id @default(uuid())
+  supplierListingId  String
+  canonicalVariantId String?
+  externalVariantId  String
+  rawName            String
+  normalizedName     String
+  rawDescription     String?     @db.Text
+  rawData            Json        @default("{}")
+  matchStatus        MatchStatus @default(UNMATCHED)
+  matchConfidence    Decimal?    @db.Decimal(5, 4)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  supplierListing  SupplierListing   @relation(fields: [supplierListingId], references: [id], onDelete: Cascade)
+  canonicalVariant CanonicalVariant? @relation(fields: [canonicalVariantId], references: [id], onDelete: SetNull)
+  offers           Offer[]
+
+  @@unique([supplierListingId, externalVariantId])
+  @@index([supplierListingId])
+  @@index([canonicalVariantId])
+  @@index([matchStatus])
+  @@map("supplier_variant_listings")
+}
+
+// -----------------------------------------------------------------------------
+// 8. Offer Model (Real-time or cached rate, availability & policies)
+// -----------------------------------------------------------------------------
+model Offer {
+  id                       String    @id @default(uuid())
+  supplierVariantListingId String
+  currency                 String    @default("USD")
+  basePrice                Decimal   @db.Decimal(10, 2)
+  netPrice                 Decimal   @db.Decimal(10, 2)
+  taxAmount                Decimal   @default(0.00) @db.Decimal(10, 2)
+  availabilityCount        Int?      @default(1)
+  checkInDate              DateTime?
+  checkOutDate             DateTime?
+  validFrom                DateTime?
+  validTo                  DateTime?
+  cancellationPolicy       Json      @default("{}")
+  mealPlan                 String?
+  transferIncluded         Boolean   @default(false)
+  inclusions               Json      @default("[]")
+  bookingConditions        String?   @db.Text
+  retrievedAt              DateTime  @default(now())
+  expiresAt                DateTime?
+
+  supplierVariant SupplierVariantListing @relation(fields: [supplierVariantListingId], references: [id], onDelete: Cascade)
+  rankingResults  RankingResult[]
+
+  @@index([supplierVariantListingId])
+  @@index([netPrice])
+  @@index([currency])
+  @@map("offers")
+}
+
+// -----------------------------------------------------------------------------
+// 9. MatchDecision Model (Full audit history of matching operations)
+// -----------------------------------------------------------------------------
+model MatchDecision {
+  id                 String             @id @default(uuid())
+  entityType         DecisionEntityType
+  sourceListingId    String
+  targetCanonicalId  String
+  decision           DecisionType
+  confidenceScore    Decimal            @db.Decimal(5, 4)
+  explanation        Json               @default("{}")
+  decidedByUserId    String?
+  decidedAt          DateTime           @default(now())
+
+  decidedByUser User? @relation(fields: [decidedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([sourceListingId])
+  @@index([targetCanonicalId])
+  @@index([decision])
+  @@index([decidedAt])
+  @@map("match_decisions")
+}
+
+// -----------------------------------------------------------------------------
+// 10. RankingResult Model (Offer intelligence & comparison ranking output)
+// -----------------------------------------------------------------------------
+model RankingResult {
+  id                 String   @id @default(uuid())
+  queryContext       Json     @default("{}")
+  offerId            String
+  rankPosition       Int
+  overallScore       Decimal  @db.Decimal(5, 4)
+  priceScore         Decimal  @db.Decimal(5, 4)
+  reliabilityScore   Decimal  @db.Decimal(5, 4)
+  cancellationScore  Decimal  @db.Decimal(5, 4)
+  scoreBreakdown     Json     @default("{}")
+  computedAt         DateTime @default(now())
+
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade)
+
+  @@index([offerId])
+  @@index([rankPosition])
+  @@index([overallScore])
+  @@map("ranking_results")
+}

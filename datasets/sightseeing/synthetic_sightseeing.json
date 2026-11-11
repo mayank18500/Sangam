@@ -1,0 +1,177 @@
+[
+  {
+    "supplier_code": "SUP-TOURNET",
+    "supplier_name": "TourNet Experiences",
+    "external_id": "TN-ACT-1001",
+    "name": "Victoria Memorial Kolkata",
+    "address": "Victoria Memorial, Queens Way",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5448,
+    "longitude": 88.3426,
+    "description": "Historical British colonial marble monument with museum galleries and landscaped gardens.",
+    "variants": [
+      {
+        "external_variant_id": "TN-VAR-1001-ENTRY",
+        "name": "General Admission & Museum Ticket",
+        "description": "Standard museum gallery access ticket.",
+        "offers": [
+          {
+            "offer_id": "TN-OFF-101",
+            "currency": "USD",
+            "base_price": 8.00,
+            "net_price": 6.50,
+            "tax_amount": 1.50,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 24,
+              "penalty": 0.0
+            },
+            "transfer_included": false,
+            "inclusions": ["Monument Entry", "Garden Access"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-EXPERIENCEHUB",
+    "supplier_name": "ExperienceHub Global",
+    "external_id": "EH-EXP-5520",
+    "name": "Victoria Memorial Hall",
+    "address": "Queens Way, Maidan, Kolkata",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5449,
+    "longitude": 88.3427,
+    "description": "Guided walking tour through Victoria Memorial Hall museum and sprawling gardens.",
+    "variants": [
+      {
+        "external_variant_id": "EH-VAR-5520-GUIDE",
+        "name": "Guided Heritage Tour Ticket",
+        "description": "2-hour expert English speaking guide + entry pass.",
+        "offers": [
+          {
+            "offer_id": "EH-OFF-202",
+            "currency": "USD",
+            "base_price": 18.00,
+            "net_price": 14.00,
+            "tax_amount": 4.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 12,
+              "penalty": 0.0
+            },
+            "transfer_included": true,
+            "inclusions": ["Skip-the-line Ticket", "Audio Headset", "Hotel Pickup"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-TOURNET",
+    "supplier_name": "TourNet Experiences",
+    "external_id": "TN-ACT-2004",
+    "name": "Sundarbans boat tour",
+    "address": "Godkhali Ghat, Sundarbans National Park",
+    "city": "Sundarbans",
+    "country": "India",
+    "latitude": 22.1643,
+    "longitude": 88.7562,
+    "description": "Day cruise through mangrove channels, tiger reserve watch towers and village walk.",
+    "variants": [
+      {
+        "external_variant_id": "TN-VAR-2004-DAY",
+        "name": "Full Day Mangrove Boat Safari",
+        "description": "10-hour boat safari with lunch and forest permit.",
+        "offers": [
+          {
+            "offer_id": "TN-OFF-301",
+            "currency": "USD",
+            "base_price": 55.00,
+            "net_price": 45.00,
+            "tax_amount": 10.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 48,
+              "penalty": 0.0
+            },
+            "transfer_included": true,
+            "inclusions": ["Forest Permits", "Buffet Lunch", "Kolkata Pickup & Drop"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-ACTIVITYCENTRAL",
+    "supplier_name": "ActivityCentral India",
+    "external_id": "AC-EXP-8891",
+    "name": "Sundarbans mangrove cruise",
+    "address": "Canning / Godkhali, West Bengal",
+    "city": "Sundarbans",
+    "country": "India",
+    "latitude": 22.1645,
+    "longitude": 88.7565,
+    "description": "Guided mangrove boat safari across Sajnekhali and Sudhanyakhali watch towers.",
+    "variants": [
+      {
+        "external_variant_id": "AC-VAR-8891-CRUISE",
+        "name": "Sundarbans Tiger Reserve Cruise",
+        "description": "Boat cruise with naturalist guide, tea/snacks, and binoculars.",
+        "offers": [
+          {
+            "offer_id": "AC-OFF-401",
+            "currency": "USD",
+            "base_price": 50.00,
+            "net_price": 42.00,
+            "tax_amount": 8.00,
+            "cancellation_policy": {
+              "refundable": false,
+              "deadline_hours": 0,
+              "penalty": 42.00
+            },
+            "transfer_included": false,
+            "inclusions": ["Boat Safari", "Govt Guide Fee", "Afternoon Snacks"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-TOURNET",
+    "supplier_name": "TourNet Experiences",
+    "external_id": "TN-ACT-4009",
+    "name": "Belur Math Spiritual & Cultural Tour",
+    "address": "Belur, Howrah",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.6315,
+    "longitude": 88.3547,
+    "description": "Headquarters of Ramakrishna Math located on Hooghly river. Distinct religious cultural heritage attraction, must NOT be merged with Victoria Memorial.",
+    "variants": [
+      {
+        "external_variant_id": "TN-VAR-4009-HALF",
+        "name": "Half Day Cultural Tour",
+        "description": "Temple visit with evening Aarti and ferry crossing.",
+        "offers": [
+          {
+            "offer_id": "TN-OFF-501",
+            "currency": "USD",
+            "base_price": 25.00,
+            "net_price": 20.00,
+            "tax_amount": 5.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 24,
+              "penalty": 0.0
+            },
+            "transfer_included": true,
+            "inclusions": ["AC Vehicle Transfer", "Spiritual Guide", "Ferry Ticket"]
+          }
+        ]
+      }
+    ]
+  }
+]

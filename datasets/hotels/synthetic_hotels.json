@@ -1,0 +1,224 @@
+[
+  {
+    "supplier_code": "SUP-BOOKINGBRIDGE",
+    "supplier_name": "BookingBridge Global",
+    "external_id": "BB-HTL-77401",
+    "name": "The Oberoi Grand Kolkata",
+    "address": "15 Jawaharlal Nehru Road, New Market Area",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5626,
+    "longitude": 88.3510,
+    "star_rating": 5.0,
+    "description": "Colonial-era luxury heritage hotel situated in the heart of Kolkata with grand architecture and luxury spa.",
+    "variants": [
+      {
+        "external_variant_id": "BB-VAR-77401-DLX",
+        "name": "Deluxe King Heritage Room",
+        "description": "Spacious king bed room overlooking the courtyard pool.",
+        "offers": [
+          {
+            "offer_id": "BB-OFF-901",
+            "currency": "USD",
+            "base_price": 145.00,
+            "net_price": 130.00,
+            "tax_amount": 15.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 48,
+              "penalty": 0.0
+            },
+            "meal_plan": "Bed & Breakfast",
+            "transfer_included": false,
+            "inclusions": ["Buffet Breakfast", "High-speed Wi-Fi", "Pool Access"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-GLOBALBEDBANK",
+    "supplier_name": "GlobalBedBank B2B",
+    "external_id": "GBB-108422",
+    "name": "The Oberoi Grand, Kolkata",
+    "address": "15, J.L. Nehru Rd, Esplanade, Dharmatala",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5627,
+    "longitude": 88.3511,
+    "star_rating": 5.0,
+    "description": "5-star historic hotel in central Kolkata offering Victorian elegance and world-class dining.",
+    "variants": [
+      {
+        "external_variant_id": "GBB-VAR-108422-KNG",
+        "name": "Deluxe Room, 1 King Bed",
+        "description": "Classic colonial decor with modern luxury amenities and city or pool views.",
+        "offers": [
+          {
+            "offer_id": "GBB-OFF-441",
+            "currency": "USD",
+            "base_price": 140.00,
+            "net_price": 122.00,
+            "tax_amount": 18.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 24,
+              "penalty": 0.0
+            },
+            "meal_plan": "Room Only",
+            "transfer_included": true,
+            "inclusions": ["Airport One-Way Transfer", "Complimentary Tea/Coffee"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-DIRECTCONNECT",
+    "supplier_name": "DirectConnect Hospitality",
+    "external_id": "DC-IND-00439",
+    "name": "Oberoi Grand Hotel",
+    "address": "Jawaharlal Nehru Road, Kolkata",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5625,
+    "longitude": 88.3509,
+    "star_rating": 5.0,
+    "description": "Palatial grandeur known as the Grande Dame of Chowringhee.",
+    "variants": [
+      {
+        "external_variant_id": "DC-VAR-00439-HERITAGE",
+        "name": "Heritage Deluxe King",
+        "description": "Courtyard view deluxe room with marble bath.",
+        "offers": [
+          {
+            "offer_id": "DC-OFF-332",
+            "currency": "USD",
+            "base_price": 155.00,
+            "net_price": 135.00,
+            "tax_amount": 20.00,
+            "cancellation_policy": {
+              "refundable": false,
+              "deadline_hours": 0,
+              "penalty": 135.0
+            },
+            "meal_plan": "Bed & Breakfast",
+            "transfer_included": false,
+            "inclusions": ["Breakfast Included", "Heritage Walk Session"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-BOOKINGBRIDGE",
+    "supplier_name": "BookingBridge Global",
+    "external_id": "BB-HTL-88204",
+    "name": "Taj Palace New Delhi",
+    "address": "2 Sardar Patel Marg, Diplomatic Enclave",
+    "city": "New Delhi",
+    "country": "India",
+    "latitude": 28.5985,
+    "longitude": 77.1725,
+    "star_rating": 5.0,
+    "description": "Sprawled over 6 acres of lush green lawns in New Delhi's prestigious Diplomatic Enclave.",
+    "variants": [
+      {
+        "external_variant_id": "BB-VAR-88204-SUP",
+        "name": "Superior Room King Bed",
+        "description": "Sophisticated rooms with garden view and luxurious amenities.",
+        "offers": [
+          {
+            "offer_id": "BB-OFF-882",
+            "currency": "USD",
+            "base_price": 210.00,
+            "net_price": 185.00,
+            "tax_amount": 25.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 48,
+              "penalty": 0.0
+            },
+            "meal_plan": "Breakfast Included",
+            "transfer_included": true,
+            "inclusions": ["Express Check-in", "Daily Buffet Breakfast"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-GLOBALBEDBANK",
+    "supplier_name": "GlobalBedBank B2B",
+    "external_id": "GBB-209118",
+    "name": "Taj Palace, Delhi",
+    "address": "Sardar Patel Marg, Chanakyapuri",
+    "city": "New Delhi",
+    "country": "India",
+    "latitude": 28.5986,
+    "longitude": 77.1726,
+    "star_rating": 5.0,
+    "description": "Luxury palace hotel in central diplomatic area.",
+    "variants": [
+      {
+        "external_variant_id": "GBB-VAR-209118-KNG",
+        "name": "Superior King Room",
+        "description": "Plush king room overlooking landscaped gardens.",
+        "offers": [
+          {
+            "offer_id": "GBB-OFF-771",
+            "currency": "USD",
+            "base_price": 220.00,
+            "net_price": 190.00,
+            "tax_amount": 30.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 72,
+              "penalty": 0.0
+            },
+            "meal_plan": "Room Only",
+            "transfer_included": false,
+            "inclusions": ["Wi-Fi"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "supplier_code": "SUP-BOOKINGBRIDGE",
+    "supplier_name": "BookingBridge Global",
+    "external_id": "BB-HTL-99312",
+    "name": "Taj Bengal Kolkata",
+    "address": "34B Belvedere Road, Alipore",
+    "city": "Kolkata",
+    "country": "India",
+    "latitude": 22.5360,
+    "longitude": 88.3320,
+    "star_rating": 5.0,
+    "description": "Distinctive landmark hotel located in upscale Alipore Kolkata with atrium lobby and lush greenery. Must NOT be merged with Taj Palace Delhi.",
+    "variants": [
+      {
+        "external_variant_id": "BB-VAR-99312-LUX",
+        "name": "Luxury Room Garden View",
+        "description": "Elegant luxury room with garden view.",
+        "offers": [
+          {
+            "offer_id": "BB-OFF-993",
+            "currency": "USD",
+            "base_price": 160.00,
+            "net_price": 140.00,
+            "tax_amount": 20.00,
+            "cancellation_policy": {
+              "refundable": true,
+              "deadline_hours": 24,
+              "penalty": 0.0
+            },
+            "meal_plan": "Bed & Breakfast",
+            "transfer_included": false,
+            "inclusions": ["Breakfast Included", "Pool Access"]
+          }
+        ]
+      }
+    ]
+  }
+]
